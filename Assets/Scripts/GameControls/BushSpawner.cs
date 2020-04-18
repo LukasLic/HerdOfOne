@@ -6,7 +6,9 @@ public class BushSpawner : MonoBehaviour
 {
     public LayerMask groundMask;
 
+    // Prefabs
     public GameObject bushPrefab;
+    public GameObject bigPrefab;
     public GameObject thornyPrefab;
     public GameObject deliciousPrefab;
 
@@ -15,6 +17,7 @@ public class BushSpawner : MonoBehaviour
 
     void Update()
     {
+        // TODO
         if(Input.GetButtonDown("Fire1"))
         {
             
@@ -42,32 +45,32 @@ public class BushSpawner : MonoBehaviour
 
     private void RootOutThornyBush()
     {
+        // Shoot ray from the camera.
         var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(camRay, out RaycastHit hit, float.MaxValue))
         {
-            Vector3 point = hit.point;
-            if (hit.collider.tag == "Bush")
+            // Destroy thorny bush if it was hit.
+            var component = hit.collider.GetComponent<ThornyBush>();
+
+            if (component != null)
             {
-                var component = hit.collider.GetComponent<ThornyBush>();
-                if (component != null)
-                    Destroy(hit.collider.gameObject);
+                manager.RemoveBush(component);
             }
             else
-            {
                 Debug.Log($"Incorrect root out: {hit.collider.name} ({hit.collider.tag}) was hit.");
-            }
         }
     }
 
     private void SpawnBush(GameObject prefab)
     {
+        // Shoot ray from the camera.
         var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(camRay, out RaycastHit hit, float.MaxValue))
         {
-            Vector3 point = hit.point;
-            if(hit.collider.gameObject.layer == GameManager.GetlayerId(groundMask.value))
+            // Did I hit groundMask succesfully?
+            if (hit.collider.gameObject.layer == GameManager.GetlayerId(groundMask.value))
             {
                 var bush = Instantiate(prefab, hit.point, Quaternion.identity, bushesParent);
                 manager.AddBush(bush);
@@ -77,12 +80,5 @@ public class BushSpawner : MonoBehaviour
                 Debug.Log($"Incorrect spawn: {hit.collider.name} ({hit.collider.gameObject.layer}) was hit.");
             }
         }
-
-        //if (Physics.Raycast(camRay, out RaycastHit hit, float.MaxValue, groundMask))
-        //{
-        //    Vector3 point = hit.point;
-        //    var bush = Instantiate(bushPrefab, hit.point, Quaternion.identity, bushesParent);
-        //    manager.AddBush(bush);
-        //}
     }
 }

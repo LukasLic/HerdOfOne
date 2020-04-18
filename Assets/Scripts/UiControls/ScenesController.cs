@@ -6,13 +6,7 @@ using UnityEngine.SceneManagement;
 public class ScenesController : MonoBehaviour
 {
     public Animator animator;
-    private int index;
-    //public float speed;
-
-    private void Start()
-    {
-        //animator.speed = speed;
-    }
+    private int index;  // Scene to load.
 
     public void LoadScene(int sceneIndex)
     {

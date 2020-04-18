@@ -63,7 +63,7 @@ public class WolfBehaviour : MonoBehaviour
             // Get the bush component.
             var component = other.GetComponent<Bush>();
 
-            if(component.GetType() == typeof(ThornyBush) || component.GetType() == typeof(ThornyDeliciousBush))
+            if(component.GetType() == typeof(ThornyBush))
             {
                 runDirection = (transform.position - other.transform.position).normalized;
                 runAway = true;

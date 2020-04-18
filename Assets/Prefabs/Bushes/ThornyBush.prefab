@@ -135,7 +135,7 @@ MonoBehaviour:
   taste: 2
   food: 5
   health: -10
-  timeToEat: 2
+  timeToEat: 1
 --- !u!1 &7306135246580223467
 GameObject:
   m_ObjectHideFlags: 0

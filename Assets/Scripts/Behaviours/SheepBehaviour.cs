@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class SheepBehaviour : MonoBehaviour
 {
-
     public GameManager manager;
     private SheepHealth health;
 
     public float speed = 1f;
     public float stoppingDistance = 0.4f;
 
-    //private Vector3 targetDestination = Vector3.zero;
     private Bush targetBush;
-    //private bool travelling = false;
     private bool eating = false;
 
     // Start is called before the first frame update
@@ -32,58 +29,28 @@ public class SheepBehaviour : MonoBehaviour
 
         if(targetBush != null && !eating)
         {
-            if(Arrived())
+            if(Arrived())   // Start eating bush.
             {
                 eating = true;
                 StartCoroutine(EatBush(targetBush.timeToEat));
             }
-            else
+            else    // Move towards the bush.
             {
                 var direction = (targetBush.transform.position - transform.position).normalized;
                 var travel = direction * speed * Time.deltaTime;
                 travel.y = 0f;
-
                 transform.position += travel;
             }
         }
-        
-        //if (travelling && Arrived())
-        //{
-        //    //Debug.Log("BEEEEE");
-        //    travelling = false;
-        //    StartCoroutine(EatBush(targetBush.timeToEat));
-        //}
-
-        //if (travelling)
-        //{
-        //    if(targetBush != null)
-        //    {
-        //        var direction = (targetBush.transform.position - transform.position).normalized;
-        //        var travel = direction * speed * Time.deltaTime;
-        //        travel.y = 0f;
-
-        //        transform.position += travel;
-        //    }
-        //    else
-        //    {
-        //        travelling = false;
-        //    }
-        //}
-        //else if (!travelling && targetBush == null)
-        //{
-        //    FindNewBush();   
-        //}
     }
 
     private void FindNewBush()
     {
         var target = manager.GetBestBush(transform.position);
+
         if (target != null)
         {
-            //targetDestination = target.transform.position;
-            //targetDestination.y = 0f;
             targetBush = target;
-            //travelling = true;
         }
     }
 
@@ -91,31 +58,68 @@ public class SheepBehaviour : MonoBehaviour
     {
         if(!eating)
         {
-            targetBush = null;
+            FindNewBush();
         }
     }
 
-    private bool Arrived()
+    public void DeliciousBushAppeared()
     {
-        return GameManager.GetDistance2D(targetBush.transform.position, transform.position) <= stoppingDistance;
+        if (targetBush.GetType() != typeof(DeliciousBush)
+            ||
+            (targetBush.GetType() == typeof(DeliciousBush) && !eating))
+        {
+            targetBush = null;
+            eating = false;
+            StopAllCoroutines();
+        }
     }
 
-    private IEnumerator EatBush(float time)
+    /// <summary>
+    /// Returns true if distance to targetBush is less or equal to stoppingDistance.
+    /// </summary>
+    private bool Arrived()
     {
-        Debug.Log("Eating bush");
-        yield return new WaitForSeconds(time);
+        return GameManager.
+            GetDistance2D(targetBush.transform.position, transform.position)
+            <=
+            stoppingDistance;
+    }
 
-        if(targetBush != null)
+    public void BushGotDestroyed(int destroyedBushId)
+    {
+        if (eating 
+            &&
+            targetBush.gameObject.GetInstanceID() == destroyedBushId)
         {
-            Debug.Log("Bush eaten");
+            Debug.Log($"Sheep was interrupted eating.");
+            targetBush = null;
+            eating = false;
+            StopAllCoroutines();
+        }
+    }
+
+    public IEnumerator EatBush(float time)
+    {
+        Debug.Log($"Sheep started eating {targetBush.name}");
+        yield return new WaitForSeconds(time);
+        FinishEating();
+
+        yield return null;
+    }
+
+    private void FinishEating()
+    {
+        eating = false;
+
+        // Leave this here, important for running when bush got destroyed while eating!
+        if (targetBush != null)
+        {
+            Debug.Log($"Sheep finished eating {targetBush.name}");
 
             targetBush.ApplyEaten(health);
             manager.RemoveBush(targetBush);
         }
 
         targetBush = null;
-        eating = false;
-
-        yield return null;
     }
 }

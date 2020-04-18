@@ -4,20 +4,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public List<Bush> bushes;
-    public static float gameArea = 20f;
+    private List<Bush> bushes;
+    public const float gameArea = 20f;
 
     public GameUIController uIController;
+    public SheepBehaviour sheep;
 
     private float maxGameLength;
-    private float gameTimer;
-    public float gameLength;
+    private float _gameTimer;
+    private float GameTimer
+    {
+        get => _gameTimer;
+        set
+        {
+            _gameTimer = value;
+            uIController.SetTime(GameTimer, maxGameLength);
+
+            if (GameTimer >= maxGameLength)
+            {
+                Debug.LogError("WIN");
+            }
+        }
+    }
+    public float initialGameLength;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxGameLength = gameLength;
-        gameTimer = 0f;
+        maxGameLength = initialGameLength;
+        GameTimer = 0f;
 
         bushes = new List<Bush>();
 
@@ -33,42 +48,36 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameTimer += Time.deltaTime;
-        uIController.SetTime(gameTimer, maxGameLength);
-
-        if (gameTimer >= maxGameLength)
-        {
-            Debug.LogError("WIN");
-        }
+        GameTimer += Time.deltaTime;
     }
 
-    public Bush GetClosestBush(Vector3 position)
+    #region Game states
+    public void GameOver()
     {
-        var distance = float.MaxValue;
-        Bush closestBush = null;
 
-        foreach (var bush in bushes)
-        {
-            if(bush != null)
-            {
-                var distFromPosition = (bush.transform.position - position).magnitude;
-                if (distFromPosition < distance)
-                {
-                    distance = distFromPosition;
-                    closestBush = bush;
-                }
-            }
-        }
-
-        return closestBush;
     }
 
+    public void Victory()
+    {
+
+    }
+
+    // Removes every object from the game.
+    // Useful when you don't want player to get killed while reading Victory screen.
+    private void CleanGame()
+    {
+
+    }
+    #endregion
+
+    #region Logic around bushes list
     public void RemoveBush(Bush bush)
     {
         bushes.RemoveAll(b => b == null);
-
         bushes.Remove(bush);
-        Destroy(bush.gameObject);
+        bush.Despawn();
+
+        sheep.BushGotDestroyed(bush.gameObject.GetInstanceID());
     }
 
     public void AddBush(GameObject bushObject)
@@ -76,19 +85,26 @@ public class GameManager : MonoBehaviour
         var bush = bushObject.GetComponent<Bush>();
         if (bush != null)
         {
-            bush.OnSpawn();
             bushes.Add(bush);
+            bush.OnSpawn();
+
+            sheep.ForgetBush();
         }
     }
 
+    /// <summary>
+    /// Returns best bush in the scene. Null if no bushes.
+    /// </summary>
     public Bush GetBestBush(Vector3 position)
     {
+        // Remove null values. Better be safe than sorry.
         bushes.RemoveAll(b => b == null);
 
         var distance = float.MaxValue;
         var taste = int.MinValue;
         Bush closestBush = null;
 
+        // Loops finds the best tasting and then closest bush.
         foreach (var bush in bushes)
         {
             if (bush.taste > taste)
@@ -111,7 +127,12 @@ public class GameManager : MonoBehaviour
 
         return closestBush;
     }
+    #endregion
 
+    #region Static
+
+    // Returns true if the tag is used by custom game object.
+    // PS: If something crashed you probably forgot to change this. Idiot...
     public static bool IsGameObjectTag(string tag)
     {
         switch (tag)
@@ -127,6 +148,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Returns distance between two positions, ignoring y.
     public static float GetDistance2D(Vector3 a, Vector3 b)
     {
         var dist = b - a;
@@ -134,23 +156,38 @@ public class GameManager : MonoBehaviour
         return dist.magnitude;
     }
 
+    // Returns layer id in editor view format.
     public static int GetlayerId(int bit)
     {
         return (int)Mathf.Log(bit, 2f);
     }
 
-    public void GameOver()
-    {
+    #endregion
 
-    }
+    #region Depracted
+    // DEPRACTED
+    //public Bush GetClosestBush(Vector3 position)
+    //{
+    //    bushes.RemoveAll(b => b == null);
 
-    public void Victory()
-    {
+    //    var distance = float.MaxValue;
+    //    Bush closestBush = null;
 
-    }
+    //    foreach (var bush in bushes)
+    //    {
+    //        // Condition for errors in the list. Better be safe than sorry.
+    //        if (bush != null)
+    //        {
+    //            var distFromPosition = (bush.transform.position - position).magnitude;
+    //            if (distFromPosition < distance)
+    //            {
+    //                distance = distFromPosition;
+    //                closestBush = bush;
+    //            }
+    //        }
+    //    }
 
-    private void CleanGame()
-    {
-
-    }
+    //    return closestBush;
+    //}
+    #endregion
 }

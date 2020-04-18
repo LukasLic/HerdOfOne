@@ -6,8 +6,10 @@ public class DeliciousBush : Bush
 {
     public override void OnSpawn()
     {
-        Debug.Log("Change FOCUS");
+        base.OnSpawn();
+
+        // Change focus of the sheep.
         var sheep = GameObject.FindGameObjectWithTag("Sheep").GetComponent<SheepBehaviour>();
-        sheep.ForgetBush();
+        sheep.DeliciousBushAppeared();
     }
 }

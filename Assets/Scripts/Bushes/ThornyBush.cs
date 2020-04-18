@@ -6,6 +6,6 @@ public class ThornyBush : Bush
 {
     public override void OnSpawn()
     {
-        return;
+        base.OnSpawn();
     }
 }
