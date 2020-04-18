@@ -7,6 +7,8 @@ public class SheepHealth : MonoBehaviour
     public float initialHealth = 100f;
     public float initialFullnes = 100f;
 
+    public GameUIController uIController;
+
     private float maxHealth;
     private float _health;
     public float Health
@@ -22,8 +24,17 @@ public class SheepHealth : MonoBehaviour
                 _health = maxHealth;
             else if (_health < 0f)
             {
+                uIController.SetHealth(_health, maxHealth);
+
+                GameObject.
+                    FindGameObjectWithTag("GameController").
+                    GetComponent<GameManager>().
+                    GameOver();
+
                 Debug.LogError("GAME OVER");
             }
+
+            uIController.SetHealth(_health, maxHealth);
         }
     }
 
@@ -42,8 +53,17 @@ public class SheepHealth : MonoBehaviour
                 _fullnes = maxFullnes;
             else if (_fullnes < 0f)
             {
+                uIController.SetFood(_fullnes, maxFullnes);
+
+                GameObject.
+                    FindGameObjectWithTag("GameController").
+                    GetComponent<GameManager>().
+                    GameOver();
+
                 Debug.LogError("GAME OVER");
             }
+
+            uIController.SetFood(_fullnes, maxFullnes);
         }
     }
 

@@ -7,9 +7,18 @@ public class GameManager : MonoBehaviour
     public List<Bush> bushes;
     public static float gameArea = 20f;
 
+    public GameUIController uIController;
+
+    private float maxGameLength;
+    private float gameTimer;
+    public float gameLength;
+
     // Start is called before the first frame update
     void Start()
     {
+        maxGameLength = gameLength;
+        gameTimer = 0f;
+
         bushes = new List<Bush>();
 
         // Add initial bushes
@@ -24,7 +33,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            
+        gameTimer += Time.deltaTime;
+        uIController.SetTime(gameTimer, maxGameLength);
+
+        if (gameTimer >= maxGameLength)
+        {
+            Debug.LogError("WIN");
+        }
     }
 
     public Bush GetClosestBush(Vector3 position)
@@ -122,5 +137,20 @@ public class GameManager : MonoBehaviour
     public static int GetlayerId(int bit)
     {
         return (int)Mathf.Log(bit, 2f);
+    }
+
+    public void GameOver()
+    {
+
+    }
+
+    public void Victory()
+    {
+
+    }
+
+    private void CleanGame()
+    {
+
     }
 }
