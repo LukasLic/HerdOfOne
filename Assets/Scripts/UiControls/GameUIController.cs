@@ -9,6 +9,10 @@ public class GameUIController : MonoBehaviour
     public Slider foodSlider;
     public Slider timeSlider;
 
+    public Animator VictoryCanvas;
+    public Animator GameoverCanvas;
+
+    #region Sliders
     public void SetHealth(float value, float max)
     {
         healthSlider.value = (value / max);
@@ -22,5 +26,16 @@ public class GameUIController : MonoBehaviour
     public void SetTime(float value, float max)
     {
         timeSlider.value = (value / max);
+    }
+    #endregion
+
+    public void Victory()
+    {
+        VictoryCanvas.SetTrigger("Play");
+    }
+
+    public void GameOver()
+    {
+        GameoverCanvas.SetTrigger("Play");
     }
 }

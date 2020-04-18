@@ -52,7 +52,7 @@ public class CarBehaviour : MonoBehaviour
         }
         else if (other.tag == "Car")
         {
-            
+            transform.LookAt(transform.position - transform.forward);
         }
         else if (other.tag == "Wolf")
         {
@@ -65,7 +65,7 @@ public class CarBehaviour : MonoBehaviour
         }
         else if(GameManager.IsGameObjectTag(other.tag))
         {
-            Debug.LogWarning($"Collision behaviour with {other.name} not set!");
+            //Debug.LogWarning($"Collision behaviour with {other.name} not set!");
         }
     }
 }

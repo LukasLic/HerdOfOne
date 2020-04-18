@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a145f43d10d74646b1404e9e22d5aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taste: 2
+  taste: 1
   food: 5
   health: -10
   timeToEat: 1

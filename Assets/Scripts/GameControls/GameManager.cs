@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
     private List<Bush> bushes;
     public const float gameArea = 20f;
 
-    public GameUIController uIController;
+    public GameUIController uiController;
     public SheepBehaviour sheep;
+
+    private ObjectSpawner spawner;
 
     private float maxGameLength;
     private float _gameTimer;
@@ -18,11 +20,11 @@ public class GameManager : MonoBehaviour
         set
         {
             _gameTimer = value;
-            uIController.SetTime(GameTimer, maxGameLength);
+            uiController.SetTime(GameTimer, maxGameLength);
 
             if (GameTimer >= maxGameLength)
             {
-                Debug.LogError("WIN");
+                Victory();
             }
         }
     }
@@ -43,6 +45,9 @@ public class GameManager : MonoBehaviour
             if (component != null)
                 bushes.Add(component);
         }
+
+        spawner = GetComponent<ObjectSpawner>();
+        spawner.StartSpawning();
     }
 
     // Update is called once per frame
@@ -54,19 +59,29 @@ public class GameManager : MonoBehaviour
     #region Game states
     public void GameOver()
     {
-
+        CleanGame();
+        uiController.GameOver();
     }
 
     public void Victory()
     {
-
+        CleanGame();
+        uiController.Victory();
     }
 
     // Removes every object from the game.
     // Useful when you don't want player to get killed while reading Victory screen.
     private void CleanGame()
     {
+        spawner.StopSpawning();
+        spawner.DeleteAllObjects();
 
+        sheep.enabled = false;
+        sheep.StopAllCoroutines();
+        sheep.gameObject.GetComponent<SheepHealth>().enabled = false;
+        sheep.gameObject.SetActive(false);
+
+        Destroy(sheep.gameObject);
     }
     #endregion
 

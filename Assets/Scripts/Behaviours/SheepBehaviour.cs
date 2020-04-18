@@ -109,6 +109,7 @@ public class SheepBehaviour : MonoBehaviour
 
     private void FinishEating()
     {
+        // This MUST be first!
         eating = false;
 
         // Leave this here, important for running when bush got destroyed while eating!

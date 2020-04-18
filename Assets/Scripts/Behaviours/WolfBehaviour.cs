@@ -5,7 +5,7 @@ using UnityEngine;
 public class WolfBehaviour : MonoBehaviour
 {
     public float speed;
-    public int attack;
+    public int attackDamage;
     private SheepHealth sheep;
 
     private bool runAway = false;
@@ -20,6 +20,7 @@ public class WolfBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // get direction to move.
         Vector3 direction;
         if(!runAway)
         {
@@ -30,12 +31,13 @@ public class WolfBehaviour : MonoBehaviour
             direction = runDirection;
         }
 
+        // Move.
         transform.position += direction * Time.deltaTime * speed;
 
-        // Destroy if out of the game area
+        // Destroy if out of the game area.
         if (GameManager.GetDistance2D(transform.position, Vector3.zero) > GameManager.gameArea)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -45,9 +47,10 @@ public class WolfBehaviour : MonoBehaviour
 
         if (other.tag == "Sheep")
         {
+            // Bite the sheep and run away from map.
             if(!runAway)
             {
-                sheep.Health -= attack;
+                sheep.Health -= attackDamage;
                 runAway = true;
 
                 // Find closest exit
@@ -56,6 +59,7 @@ public class WolfBehaviour : MonoBehaviour
         }
         else if (other.tag == "Car")
         {
+            // Just die :D
             // Will be destroyed by car.
         }
         else if (other.tag == "Bush")
@@ -65,6 +69,7 @@ public class WolfBehaviour : MonoBehaviour
 
             if(component.GetType() == typeof(ThornyBush))
             {
+                // Run in opposite direction.
                 runDirection = (transform.position - other.transform.position).normalized;
                 runAway = true;
 
@@ -73,7 +78,7 @@ public class WolfBehaviour : MonoBehaviour
         }
         else if (GameManager.IsGameObjectTag(other.tag))
         {
-            Debug.LogWarning($"Collision behaviour with {other.name} not set!");
+            //Debug.LogWarning($"Collision behaviour with {other.name} not set!");
         }
     }
 }

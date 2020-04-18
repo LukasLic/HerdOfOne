@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f96d55c4eaaa1f4fa6f06205a8e4f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taste: 1
+  taste: 3
   food: 10
   health: 1
   timeToEat: 1

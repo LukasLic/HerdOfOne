@@ -7,39 +7,49 @@ public class BushSpawner : MonoBehaviour
     public LayerMask groundMask;
 
     // Prefabs
-    public GameObject bushPrefab;
-    public GameObject bigPrefab;
-    public GameObject thornyPrefab;
-    public GameObject deliciousPrefab;
+    public List<BushSpawnGroup> spawnGroups;
+    //public BushSpawnGroup defaultBush;
+    //public BushSpawnGroup bigBush;
+    //public BushSpawnGroup thornyBush;
+    //public BushSpawnGroup deliciousBush;
 
     public Transform bushesParent;
     public GameManager manager;
 
+    private void Start()
+    {
+        foreach (var group in spawnGroups)
+        {
+            group.Activate();
+        }
+    }
+
     void Update()
     {
-        // TODO
-        if(Input.GetButtonDown("Fire1"))
+        bool placedBush = false;
+
+        // Set update time for bushes groups.
+        // Check user input to spawn bush.
+        foreach (var group in spawnGroups)
         {
-            
-            if (Input.GetButton("Jump"))
+            group.FrameDeltaTime = Time.deltaTime;
+
+            if (!placedBush && Input.GetKeyDown(group.key) && group.IsAvaliable())
             {
-                SpawnBush(deliciousPrefab);
-            }
-            else
-            {
-                SpawnBush(bushPrefab);
+                Debug.Log($"User pressed: {group.key}. Trying to spawn: {group.prefab.name}.");
+                if(SpawnBush(group.prefab))
+                {
+                    placedBush = true;
+                    group.Deactivate();
+                }
+                
             }
         }
-        else if(Input.GetButtonDown("Fire2"))
+
+        // Try to root out thorny bush.
+        if (!placedBush && Input.GetButtonDown("Fire1"))
         {
-            if(Input.GetButton("Jump"))
-            {
-                RootOutThornyBush();
-            }
-            else
-            {
-                SpawnBush(thornyPrefab);
-            }
+            RootOutThornyBush();
         }
     }
 
@@ -62,7 +72,10 @@ public class BushSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnBush(GameObject prefab)
+    /// <summary>
+    /// Spawns bush and returns true if spawning was succesful.
+    /// </summary>
+    private bool SpawnBush(GameObject prefab)
     {
         // Shoot ray from the camera.
         var camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -74,11 +87,14 @@ public class BushSpawner : MonoBehaviour
             {
                 var bush = Instantiate(prefab, hit.point, Quaternion.identity, bushesParent);
                 manager.AddBush(bush);
+                return true;
             }
             else
             {
                 Debug.Log($"Incorrect spawn: {hit.collider.name} ({hit.collider.gameObject.layer}) was hit.");
             }
         }
+
+        return false;
     }
 }
