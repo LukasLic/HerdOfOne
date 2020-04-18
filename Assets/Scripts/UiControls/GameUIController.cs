@@ -31,11 +31,13 @@ public class GameUIController : MonoBehaviour
 
     public void Victory()
     {
+        VictoryCanvas.gameObject.SetActive(true);
         VictoryCanvas.SetTrigger("Play");
     }
 
     public void GameOver()
     {
+        GameoverCanvas.gameObject.SetActive(true);
         GameoverCanvas.SetTrigger("Play");
     }
 }

@@ -97,4 +97,18 @@ public class BushSpawner : MonoBehaviour
 
         return false;
     }
+
+    public void SpeedUpRefreshing(float amount, BushType identifier)
+    {
+        foreach (var group in spawnGroups)
+        {
+            if(group.identifier == identifier)
+            {
+                group.FrameDeltaTime = amount;
+                return;
+            }
+        }
+
+        Debug.LogWarning($"Didn't find {identifier.ToString()} to refresh!");
+    }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [Serializable]
 public class BushSpawnGroup
 {
+    public BushType identifier;
     public GameObject prefab;
     public KeyCode key;
 

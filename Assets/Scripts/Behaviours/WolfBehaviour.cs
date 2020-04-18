@@ -32,6 +32,8 @@ public class WolfBehaviour : MonoBehaviour
         }
 
         // Move.
+        direction.y = 0f;
+        transform.LookAt(transform.position + direction);
         transform.position += direction * Time.deltaTime * speed;
 
         // Destroy if out of the game area.

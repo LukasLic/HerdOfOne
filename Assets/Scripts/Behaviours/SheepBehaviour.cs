@@ -40,6 +40,9 @@ public class SheepBehaviour : MonoBehaviour
                 var travel = direction * speed * Time.deltaTime;
                 travel.y = 0f;
                 transform.position += travel;
+
+                direction.y = 0f;
+                transform.LookAt(transform.position + direction);
             }
         }
     }
@@ -64,6 +67,9 @@ public class SheepBehaviour : MonoBehaviour
 
     public void DeliciousBushAppeared()
     {
+        if (targetBush == null)
+            return;
+
         if (targetBush.GetType() != typeof(DeliciousBush)
             ||
             (targetBush.GetType() == typeof(DeliciousBush) && !eating))

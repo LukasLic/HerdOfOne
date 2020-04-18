@@ -76,12 +76,16 @@ public class GameManager : MonoBehaviour
         spawner.StopSpawning();
         spawner.DeleteAllObjects();
 
-        sheep.enabled = false;
-        sheep.StopAllCoroutines();
-        sheep.gameObject.GetComponent<SheepHealth>().enabled = false;
-        sheep.gameObject.SetActive(false);
+        GetComponent<BushSpawner>().enabled = false;
 
-        Destroy(sheep.gameObject);
+        if(sheep != null)
+        {
+            sheep.enabled = false;
+            sheep.StopAllCoroutines();
+            sheep.gameObject.GetComponent<SheepHealth>().enabled = false;
+            sheep.gameObject.SetActive(false);
+            Destroy(sheep.gameObject);
+        }
     }
     #endregion
 
@@ -115,29 +119,34 @@ public class GameManager : MonoBehaviour
         // Remove null values. Better be safe than sorry.
         bushes.RemoveAll(b => b == null);
 
-        var distance = float.MaxValue;
-        var taste = int.MinValue;
+        //var distance = float.MaxValue;
+        var taste = float.MinValue;
         Bush closestBush = null;
 
         // Loops finds the best tasting and then closest bush.
         foreach (var bush in bushes)
         {
-            if (bush.taste > taste)
+            //var distFromPosition = (bush.transform.position - position).magnitude;
+            //var tasteValue = bush.taste / distFromPosition;
+            var distance = (bush.transform.position - position).magnitude;
+            var tasteValue = bush.taste / distance;
+
+            if (tasteValue > taste)
             {
-                distance = (bush.transform.position - position).magnitude;
-                taste = bush.taste;
+                //distance = (bush.transform.position - position).magnitude;
+                taste = tasteValue;
                 closestBush = bush;
             }
-            else if (bush.taste == taste)
-            {
-                var distFromPosition = (bush.transform.position - position).magnitude;
-                if (distFromPosition < distance)
-                {
-                    distance = distFromPosition;
-                    closestBush = bush;
-                    taste = bush.taste;
-                }
-            }
+            //else if (bush.taste == taste)
+            //{
+            //    var distFromPosition = (bush.transform.position - position).magnitude;
+            //    if (distFromPosition < distance)
+            //    {
+            //        distance = distFromPosition;
+            //        closestBush = bush;
+            //        taste = bush.taste;
+            //    }
+            //}
         }
 
         return closestBush;
