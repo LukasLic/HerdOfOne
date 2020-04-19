@@ -46,11 +46,12 @@ public class BushSpawner : MonoBehaviour
             }
         }
 
-        // Try to root out thorny bush.
-        if (!placedBush && Input.GetButtonDown("Fire1"))
-        {
-            RootOutThornyBush();
-        }
+        // GAMEPLAY DEPRACTED
+        //// Try to root out thorny bush.
+        //if (!placedBush && Input.GetButtonDown("Fire1"))
+        //{
+        //    RootOutThornyBush();
+        //}
     }
 
     private void RootOutThornyBush()
