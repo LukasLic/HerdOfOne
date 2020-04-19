@@ -5,6 +5,12 @@ using UnityEngine;
 public class WolfBehaviour : MonoBehaviour
 {
     public float speed;
+
+    public float dashDistance;
+    public float dashSpeed;
+
+    private float actualSpeed;
+
     public int attackDamage;
     private SheepHealth sheep;
 
@@ -14,6 +20,7 @@ public class WolfBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        actualSpeed = speed;
         sheep = GameObject.FindGameObjectWithTag("Sheep").GetComponent<SheepHealth>();
     }
 
@@ -34,10 +41,13 @@ public class WolfBehaviour : MonoBehaviour
         // Move.
         direction.y = 0f;
         transform.LookAt(transform.position + direction);
-        transform.position += direction * Time.deltaTime * speed;
+        transform.position += direction * Time.deltaTime * actualSpeed;
+
+        if (!runAway && (transform.position - sheep.transform.position).magnitude <= dashDistance)
+            actualSpeed = dashSpeed;
 
         // Destroy if out of the game area.
-        if (GameManager.GetDistance2D(transform.position, Vector3.zero) > GameManager.gameArea)
+        if (GameManager.GetDistance2D(transform.position, Vector3.zero) > GameManager.GameAreaRadius)
         {
             Destroy(gameObject);
         }
@@ -74,8 +84,12 @@ public class WolfBehaviour : MonoBehaviour
                 // Run in opposite direction.
                 runDirection = (transform.position - other.transform.position).normalized;
                 runAway = true;
+                actualSpeed = dashSpeed;
 
-                Destroy(other.gameObject);
+                GameObject.FindGameObjectWithTag("GameController").
+                    GetComponent<GameManager>()
+                    .RemoveBush(component);
+                //Destroy(other.gameObject);
             }
         }
         else if (GameManager.IsGameObjectTag(other.tag))

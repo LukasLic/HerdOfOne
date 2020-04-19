@@ -20,7 +20,8 @@ public class BushSpawner : MonoBehaviour
     {
         foreach (var group in spawnGroups)
         {
-            group.Activate();
+            //group.Activate();
+            group.Deactivate();
         }
     }
 

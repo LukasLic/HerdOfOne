@@ -954,6 +954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
   speed: 2
+  deliciousSpeedBoost: 2
   stoppingDistance: 0.4
 --- !u!114 &8871975748502940000
 MonoBehaviour:
@@ -967,11 +968,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0031c1ff39a2b43a8eadf891916163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eatingHungerSlow: 0.5
   initialHealth: 100
-  initialFullnes: 100
+  initialFullnes: 60
   uIController: {fileID: 0}
   gameManager: {fileID: 0}
-  hungerMultiplier: 1
+  hungerMultiplier: 2.2
+  ui: {fileID: 0}
 --- !u!65 &8871975748502939999
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -983,8 +986,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.87, y: 0.8, z: 1.1540319}
-  m_Center: {x: 0, y: 0.5, z: 0.027015924}
+  m_Size: {x: 0.7773981, y: 0.79999995, z: 1.0360953}
+  m_Center: {x: 0, y: 0.5, z: 0.08598423}
 --- !u!54 &8871975748502940003
 Rigidbody:
   m_ObjectHideFlags: 0

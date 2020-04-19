@@ -77,8 +77,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bde4f08dd597aa4faa007069aab403b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  attackDamage: 10
+  speed: 1.3
+  dashDistance: 2
+  dashSpeed: 2
+  attackDamage: 60
 --- !u!65 &2349649023078564657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -90,8 +92,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.58, y: 0.9394736, z: 1.4038135}
-  m_Center: {x: 0, y: 0.4697368, z: 0.21431476}
+  m_Size: {x: 0.5031066, y: 0.9394736, z: 1.1557745}
+  m_Center: {x: 0, y: 0.4697368, z: 0.090295255}
 --- !u!54 &2349649023078564656
 Rigidbody:
   m_ObjectHideFlags: 0

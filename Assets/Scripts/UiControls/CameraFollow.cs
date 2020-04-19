@@ -28,15 +28,17 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
 
+        // Looking
+
+        //// A
         //var targetLookPosition = transform.position;
         //targetLookPosition.z += transform.position.z - target.position.z;
         //targetLookPosition.y = 0f;
 
-        var targetLookPosition = target.position;
-        targetLookPosition.x = transform.position.x;
-
-        Debug.DrawLine(cameraChild.position, targetLookPosition, Color.blue);
-
-        cameraChild.LookAt(targetLookPosition);
+        //// B
+        //var targetLookPosition = target.position;
+        //targetLookPosition.x = transform.position.x;
+        //Debug.DrawLine(cameraChild.position, targetLookPosition, Color.blue);
+        //cameraChild.LookAt(targetLookPosition);
     }
 }

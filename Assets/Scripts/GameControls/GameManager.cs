@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private bool gameOver;
+
     private List<Bush> bushes;
-    public const float gameArea = 20f;
+    public const float GameAreaRadius = 15f;
+    public const float SpawnRadius = 10f;
 
     public GameUIController uiController;
     public SheepBehaviour sheep;
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         maxGameLength = initialGameLength;
         GameTimer = 0f;
+        gameOver = false;
 
         bushes = new List<Bush>();
 
@@ -59,14 +63,18 @@ public class GameManager : MonoBehaviour
     #region Game states
     public void GameOver()
     {
+        gameOver = true;
         CleanGame();
         uiController.GameOver();
     }
 
     public void Victory()
     {
-        CleanGame();
-        uiController.Victory();
+        if(!gameOver)
+        {
+            CleanGame();
+            uiController.Victory();
+        }
     }
 
     // Removes every object from the game.
@@ -126,8 +134,6 @@ public class GameManager : MonoBehaviour
         // Loops finds the best tasting and then closest bush.
         foreach (var bush in bushes)
         {
-            //var distFromPosition = (bush.transform.position - position).magnitude;
-            //var tasteValue = bush.taste / distFromPosition;
             var distance = (bush.transform.position - position).magnitude;
             var tasteValue = bush.taste / distance;
 
@@ -137,17 +143,12 @@ public class GameManager : MonoBehaviour
                 taste = tasteValue;
                 closestBush = bush;
             }
-            //else if (bush.taste == taste)
-            //{
-            //    var distFromPosition = (bush.transform.position - position).magnitude;
-            //    if (distFromPosition < distance)
-            //    {
-            //        distance = distFromPosition;
-            //        closestBush = bush;
-            //        taste = bush.taste;
-            //    }
-            //}
         }
+
+        //Debug.Log(taste);
+        // No bush is close enough.
+        if (taste < 0.4f)
+            return null;
 
         return closestBush;
     }

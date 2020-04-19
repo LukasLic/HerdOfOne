@@ -8,6 +8,7 @@ public class SheepBehaviour : MonoBehaviour
     private SheepHealth health;
 
     public float speed = 1f;
+    public float deliciousSpeedBoost = 2f;
     public float stoppingDistance = 0.4f;
 
     private Bush targetBush;
@@ -39,6 +40,10 @@ public class SheepBehaviour : MonoBehaviour
                 var direction = (targetBush.transform.position - transform.position).normalized;
                 var travel = direction * speed * Time.deltaTime;
                 travel.y = 0f;
+
+                if (targetBush.GetType() == typeof(DeliciousBush))
+                    travel *= deliciousSpeedBoost;
+
                 transform.position += travel;
 
                 direction.y = 0f;
@@ -107,7 +112,10 @@ public class SheepBehaviour : MonoBehaviour
     public IEnumerator EatBush(float time)
     {
         Debug.Log($"Sheep started eating {targetBush.name}");
+        transform.LookAt(targetBush.transform.position);
+
         yield return new WaitForSeconds(time);
+
         FinishEating();
 
         yield return null;
@@ -128,5 +136,10 @@ public class SheepBehaviour : MonoBehaviour
         }
 
         targetBush = null;
+    }
+
+    public bool IsEating()
+    {
+        return eating;
     }
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SheepHealth : MonoBehaviour
 {
+    public float eatingHungerSlow = 0.5f;
+
     public float initialHealth = 100f;
     public float initialFullnes = 100f;
 
     public GameUIController uIController;
     public GameManager gameManager;
+    private SheepBehaviour behaviour;
 
     private float maxHealth;
     private float _health;
@@ -20,6 +23,9 @@ public class SheepHealth : MonoBehaviour
         }
         set
         {
+            if (value < _health)
+                ui.TakeDamage();
+
             _health = value;
             if (_health > maxHealth)
                 _health = maxHealth;
@@ -70,6 +76,8 @@ public class SheepHealth : MonoBehaviour
 
     public float hungerMultiplier = 1.0f;
 
+    public SheepHealthUI ui;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,12 +86,17 @@ public class SheepHealth : MonoBehaviour
 
         Health = initialHealth;
         Fullnes = initialFullnes;
+
+        behaviour = GetComponent<SheepBehaviour>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Fullnes -= Time.deltaTime * hungerMultiplier;
+        if (behaviour.IsEating())
+            Fullnes -= Time.deltaTime * eatingHungerSlow * hungerMultiplier;
+        else
+            Fullnes -= Time.deltaTime * hungerMultiplier;
     }
 
 

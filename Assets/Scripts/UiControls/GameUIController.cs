@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
+    public SheepHealthUI healthUI;
+
     public Slider healthSlider;
     public Slider foodSlider;
     public Slider timeSlider;
@@ -31,12 +33,14 @@ public class GameUIController : MonoBehaviour
 
     public void Victory()
     {
+        healthUI.Victory();
         VictoryCanvas.gameObject.SetActive(true);
         VictoryCanvas.SetTrigger("Play");
     }
 
     public void GameOver()
     {
+        healthUI.GameOver();
         GameoverCanvas.gameObject.SetActive(true);
         GameoverCanvas.SetTrigger("Play");
     }

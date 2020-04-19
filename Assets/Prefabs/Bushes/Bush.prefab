@@ -188,10 +188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f96d55c4eaaa1f4fa6f06205a8e4f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taste: 2
-  food: 10
+  taste: 3
+  food: 2
   health: 1
-  timeToEat: 1
+  timeToEat: 0.5
 --- !u!54 &9163053086961857650
 Rigidbody:
   m_ObjectHideFlags: 0

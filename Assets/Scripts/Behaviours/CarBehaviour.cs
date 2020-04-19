@@ -5,7 +5,12 @@ using UnityEngine;
 public class CarBehaviour : MonoBehaviour
 {
     public float speed;
+    public float rotationSpeed;
     private BoxCollider boxCollider;
+
+    private Transform sheep;
+
+    private bool crashed;
 
     private GameManager _manager;
     private GameManager Manager
@@ -23,17 +28,33 @@ public class CarBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sheep = GameObject.FindGameObjectWithTag("Sheep").transform;
         boxCollider = GetComponent<BoxCollider>();
-
+        crashed = false;
+        transform.LookAt(sheep.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += transform.forward * Time.deltaTime * speed;
+        
+        if(!crashed)
+        {
+            //transform.rotation =
+            //    Quaternion.RotateTowards(
+            //        transform.rotation,
+            //        sheep.rotation,
+            //        rotationSpeed * Time.deltaTime
+            //        );
+
+            //Vector3 direction = Vector3.RotateTowards(transform.forward, sheep.position, 1f, 1f);
+            //Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.time);
+        }
 
         // Destroy if out of the game area
-        if (GameManager.GetDistance2D(transform.position, Vector3.zero) > GameManager.gameArea)
+        if (GameManager.GetDistance2D(transform.position, Vector3.zero) > GameManager.GameAreaRadius)
         {
             Destroy(boxCollider);
             Destroy(this.gameObject);
@@ -53,6 +74,7 @@ public class CarBehaviour : MonoBehaviour
         else if (other.tag == "Car")
         {
             transform.LookAt(transform.position - transform.forward);
+            crashed = true;
         }
         else if (other.tag == "Wolf")
         {
