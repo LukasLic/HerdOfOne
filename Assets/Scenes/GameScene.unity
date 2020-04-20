@@ -288,7 +288,7 @@ PrefabInstance:
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
@@ -340,6 +340,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134049841699849552, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e356e0fcfab8f25419fc88cebb07278f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93233acf246312d45a0333ea5e43b8f6, type: 3}
 --- !u!224 &49413163 stripped
@@ -680,7 +686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.764151, g: 0.7542485, b: 0, a: 1}
+  m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1054,6 +1060,19 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 0.22425048
       objectReference: {fileID: 0}
+    - target: {fileID: 5717798464014292325, guid: 39112a1dccda9b94bb57564c46e838ce,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5717798464014292346, guid: 39112a1dccda9b94bb57564c46e838ce,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Unfortunately, the sheep didn''t make it.
+
+
+        One more try?'
+      objectReference: {fileID: 0}
     - target: {fileID: 5717798464046751403, guid: 39112a1dccda9b94bb57564c46e838ce,
         type: 3}
       propertyPath: m_Text
@@ -1293,7 +1312,7 @@ PrefabInstance:
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
@@ -1345,6 +1364,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134049841699849552, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e356e0fcfab8f25419fc88cebb07278f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93233acf246312d45a0333ea5e43b8f6, type: 3}
 --- !u!224 &727303392 stripped
@@ -1427,8 +1452,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2113,8 +2138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2186,8 +2211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2354,7 +2379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2423,8 +2448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.2888943, b: 0.9339623, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.93333334, g: 0.87409854, b: 0, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2898,7 +2923,7 @@ PrefabInstance:
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
@@ -2950,6 +2975,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134049841699849552, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4fea2aeb271ff0848be6088f32f7346b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93233acf246312d45a0333ea5e43b8f6, type: 3}
 --- !u!224 &1986711692 stripped
@@ -3050,6 +3081,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 905588384}
     m_Modifications:
+    - target: {fileID: 5717798464014292325, guid: 39112a1dccda9b94bb57564c46e838ce,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5717798464014292325, guid: 39112a1dccda9b94bb57564c46e838ce,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 229.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5717798464014292346, guid: 39112a1dccda9b94bb57564c46e838ce,
+        type: 3}
+      propertyPath: m_Text
+      value: 'You kept the sheep alive against all odds!
+
+        Smile and have
+        an amazing day, you just saved a sheep.
+
+
+        Thank you for playing :)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5717798464014292346, guid: 39112a1dccda9b94bb57564c46e838ce,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5717798465111209712, guid: 39112a1dccda9b94bb57564c46e838ce,
         type: 3}
       propertyPath: m_ScreenMatchMode
@@ -3342,6 +3399,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonHint
       objectReference: {fileID: 0}
+    - target: {fileID: 9134049840455010013, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134049840455010013, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134049840455010013, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134049840455010013, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3405,7 +3482,7 @@ PrefabInstance:
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 9134049840455010015, guid: 93233acf246312d45a0333ea5e43b8f6,
         type: 3}
@@ -3457,5 +3534,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134049841339598529, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134049841699849552, guid: 93233acf246312d45a0333ea5e43b8f6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c590796ab0f9984692fd9862b42ee0b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93233acf246312d45a0333ea5e43b8f6, type: 3}
